@@ -7,6 +7,8 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
+#import <AVFoundation/AVFoundation.h>
+
 #import "BTViewController.h"
 #import "BTSession.h"
 #import "BTTap.h"
@@ -15,12 +17,13 @@
 #define BALLOON_RADIUS 100
 #define ANIMATED YES
 #define ANIMATION_DURATION 0.2f
-#define GAME_LENGTH 2.0f
+#define GAME_LENGTH 60.0f
 
 @interface BTViewController ()
 @property (nonatomic, strong) UIView * baloon;
 @property (nonatomic, assign) NSTimeInterval startTime;
 @property (nonatomic, strong) BTSession * session;
+@property (nonatomic, strong) AVAudioPlayer * avSound;
 @end
 
 @implementation BTViewController
@@ -55,6 +58,7 @@
                                                         selector:@selector(endGame)
                                                         userInfo:nil
                                                          repeats:NO];
+                         [self startMusic];
                      }];
 }
 
@@ -64,6 +68,7 @@
     } failure:^(NSError *error) {
         NSLog(@"%@", error);
     }];
+    [self stopMusic];
 }
 
 - (void)initializeBalloon {
@@ -130,6 +135,23 @@
     CGFloat y = (CGFloat) (arc4random() % yBound) + BALLOON_RADIUS;
     
     return CGPointMake(x, y);
+}
+
+- (void)startMusic {
+    NSURL *soundURL = [[NSBundle mainBundle] URLForResource:@"baiao"
+                                              withExtension:@"mp3"];
+    NSError * error;
+    self.avSound = [[AVAudioPlayer alloc]
+                    initWithContentsOfURL:soundURL error:&error];
+    if (error) {
+        NSLog(@"%@", error);
+    }
+    [self.avSound play];
+}
+
+- (void)stopMusic {
+    if ([self.avSound isPlaying])
+        [self.avSound stop];
 }
 
 @end
