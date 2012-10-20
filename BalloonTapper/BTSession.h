@@ -7,23 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
 @class BTTap;
 
-@interface BTSession : NSManagedObject
+@interface BTSession : NSObject
 
-@property (nonatomic, retain) NSSet *taps;
+@property (nonatomic, retain) NSArray * taps;
 
 + (BTSession *)session;
 
-@end
+- (NSDictionary *)json;
 
-@interface BTSession (CoreDataGeneratedAccessors)
-
-- (void)addTapsObject:(BTTap *)value;
-- (void)removeTapsObject:(BTTap *)value;
-- (void)addTaps:(NSSet *)values;
-- (void)removeTaps:(NSSet *)values;
+- (void)addTap:(BTTap *)tap;
 
 @end

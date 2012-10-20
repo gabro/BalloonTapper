@@ -10,10 +10,12 @@
 #import "BTViewController.h"
 #import "BTSession.h"
 #import "BTTap.h"
+#import "BTAPI.h"
 
 #define BALLOON_RADIUS 100
 #define ANIMATED YES
 #define ANIMATION_DURATION 0.2f
+#define GAME_LENGTH 2.0f
 
 @interface BTViewController ()
 @property (nonatomic, strong) UIView * baloon;
@@ -48,7 +50,20 @@
                          self.session = [BTSession session];
                          [self initializeBalloon];
                          [self initializeTapReceiver];
+                         [NSTimer scheduledTimerWithTimeInterval:GAME_LENGTH
+                                                          target:self
+                                                        selector:@selector(endGame)
+                                                        userInfo:nil
+                                                         repeats:NO];
                      }];
+}
+
+- (void)endGame {
+    [[BTAPI sharedInstance] postSession:self.session completion:^{
+        NSLog(@"Sent!");
+    } failure:^(NSError *error) {
+        NSLog(@"%@", error);
+    }];
 }
 
 - (void)initializeBalloon {
@@ -92,7 +107,7 @@
     
     NSTimeInterval relativeTime = [NSDate timeIntervalSinceReferenceDate] - self.startTime;
     BTTap * tap = [BTTap tapWithTime:relativeTime];
-    [self.session addTapsObject:tap];
+    [self.session addTap:tap];
     
     NSLog(@"%@", tap);
 }

@@ -7,15 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
 @class BTSession;
 
-@interface BTTap : NSManagedObject
+@interface BTTap : NSObject
 
-@property (nonatomic, retain) NSNumber * time;
-@property (nonatomic, retain) BTSession *session;
+@property (nonatomic, assign) NSTimeInterval time;
 
 + (BTTap *)tapWithTime:(NSTimeInterval)time;
+
+- (NSDictionary *)json;
 
 @end

@@ -12,22 +12,25 @@
 
 @implementation BTTap
 
-@dynamic time;
-@dynamic session;
-
-- (id)initWithTime:(NSTimeInterval)interval {
+- (id)initWithTime:(NSTimeInterval)time {
     if (self = [super init]) {
-        self.time = @(interval);
+        _time = time;
     }
     return self;
 }
 
 + (BTTap *)tapWithTime:(NSTimeInterval)time {
-    return [[BTTap alloc] init];
+    return [[BTTap alloc] initWithTime:time];
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"Tap %f", self.time.floatValue];
+    return [NSString stringWithFormat:@"Tap %f", self.time];
+}
+
+- (NSDictionary *)json {
+    NSMutableDictionary * dict = [NSMutableDictionary dictionary];
+    dict[@"time"] = @(self.time);
+    return dict;
 }
 
 @end

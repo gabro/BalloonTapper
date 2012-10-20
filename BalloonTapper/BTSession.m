@@ -12,10 +12,30 @@
 
 @implementation BTSession
 
-@dynamic taps;
-
 + (BTSession *)session {
     return [[BTSession alloc] init];
+}
+
+- (id)init {
+    self = [super init];
+    if (self) {
+        _taps = [NSArray array];
+    }
+    return self;
+}
+
+- (NSDictionary *)json {
+    NSMutableDictionary * dict = [NSMutableDictionary dictionary];
+    NSMutableArray * taps = [NSMutableArray arrayWithCapacity:self.taps.count];
+    for (BTTap * tap in self.taps) {
+            [taps addObject:tap.json];
+    }
+    dict[@"taps"] = taps;
+    return dict;
+}
+
+- (void)addTap:(BTTap *)tap {
+    self.taps = [self.taps arrayByAddingObject:tap];
 }
 
 @end
