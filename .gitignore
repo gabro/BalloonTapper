@@ -34,3 +34,6 @@ tmp
 .yardoc
 _yardoc
 doc/
+
+# Misc
+webserver/bt.db
