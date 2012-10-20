@@ -7,7 +7,7 @@ get '/' do
 end
 
 
-get '/session/:id' do
+get '/sessions/:id' do
   @session = Session.get(params[:id])
   @title = session.to_s
   erb :session
