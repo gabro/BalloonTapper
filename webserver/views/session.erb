@@ -1,0 +1,13 @@
+<h1><%= @session %></h1>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>Time</th>
+	</tr>
+<% @session.taps.each do |tap| %>
+	<tr>
+		<td><%= tap.id %></td>
+		<td><%= tap.time %></td>
+	</tr>
+<% end %>
+</table>

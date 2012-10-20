@@ -1,0 +1,6 @@
+<h1><%= @title %></h1>
+<% @sessions.each do |s| %>
+	<li>
+		<a href='<%= "/session/#{s.id}"%>'><%= s %></a>
+	</li>
+<% end %>
