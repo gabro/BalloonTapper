@@ -69,6 +69,7 @@
         NSLog(@"%@", error);
     }];
     [self stopMusic];
+    [self.baloon removeFromSuperview];
 }
 
 - (void)initializeBalloon {
