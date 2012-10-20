@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1811" systemVersion="12C54" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="BTSession" representedClassName="BTSession" syncable="YES">
+        <relationship name="taps" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="BTTap" inverseName="session" inverseEntity="BTTap" syncable="YES"/>
+    </entity>
+    <entity name="BTTap" representedClassName="BTTap" syncable="YES">
+        <attribute name="time" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="session" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="BTSession" inverseName="taps" inverseEntity="BTSession" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="BTSession" positionX="-272" positionY="171" width="128" height="58"/>
+        <element name="BTTap" positionX="160" positionY="192" width="128" height="73"/>
+    </elements>
+</model>

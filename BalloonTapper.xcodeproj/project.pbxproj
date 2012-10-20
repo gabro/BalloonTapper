@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A5C1D9016332AC200B59670 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6A5C1D8E16332AC200B59670 /* Model.xcdatamodeld */; };
+		6A9861E116332FEC005CF324 /* BTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9861E016332FEC005CF324 /* BTSession.m */; };
+		6A9861E81633305F005CF324 /* BTTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9861E71633305F005CF324 /* BTTap.m */; };
+		6A9861EA1633323D005CF324 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A9861E91633323D005CF324 /* CoreData.framework */; };
 		6AD9899C16321DA000F4B089 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD9899B16321DA000F4B089 /* UIKit.framework */; };
 		6AD9899E16321DA000F4B089 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD9899D16321DA000F4B089 /* Foundation.framework */; };
 		6AD989A016321DA000F4B089 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD9899F16321DA000F4B089 /* CoreGraphics.framework */; };
@@ -22,6 +26,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A5C1D8F16332AC200B59670 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		6A9861DF16332FEC005CF324 /* BTSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTSession.h; sourceTree = "<group>"; };
+		6A9861E016332FEC005CF324 /* BTSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTSession.m; sourceTree = "<group>"; };
+		6A9861E61633305F005CF324 /* BTTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTTap.h; sourceTree = "<group>"; };
+		6A9861E71633305F005CF324 /* BTTap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTTap.m; sourceTree = "<group>"; };
+		6A9861E91633323D005CF324 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6AD9899716321DA000F4B089 /* BalloonTapper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BalloonTapper.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AD9899B16321DA000F4B089 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		6AD9899D16321DA000F4B089 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -46,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A9861EA1633323D005CF324 /* CoreData.framework in Frameworks */,
 				6AD989BF16321F7800F4B089 /* QuartzCore.framework in Frameworks */,
 				6AD9899C16321DA000F4B089 /* UIKit.framework in Frameworks */,
 				6AD9899E16321DA000F4B089 /* Foundation.framework in Frameworks */,
@@ -76,6 +87,7 @@
 		6AD9899A16321DA000F4B089 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6A9861E91633323D005CF324 /* CoreData.framework */,
 				6AD989BE16321F7800F4B089 /* QuartzCore.framework */,
 				6AD9899B16321DA000F4B089 /* UIKit.framework */,
 				6AD9899D16321DA000F4B089 /* Foundation.framework */,
@@ -93,6 +105,11 @@
 				6AD989B616321DA000F4B089 /* BTViewController.h */,
 				6AD989B716321DA000F4B089 /* BTViewController.m */,
 				6AD989A216321DA000F4B089 /* Supporting Files */,
+				6A5C1D8E16332AC200B59670 /* Model.xcdatamodeld */,
+				6A9861DF16332FEC005CF324 /* BTSession.h */,
+				6A9861E016332FEC005CF324 /* BTSession.m */,
+				6A9861E61633305F005CF324 /* BTTap.h */,
+				6A9861E71633305F005CF324 /* BTTap.m */,
 			);
 			path = BalloonTapper;
 			sourceTree = "<group>";
@@ -181,6 +198,9 @@
 				6AD989A816321DA000F4B089 /* main.m in Sources */,
 				6AD989AC16321DA000F4B089 /* BTAppDelegate.m in Sources */,
 				6AD989B816321DA000F4B089 /* BTViewController.m in Sources */,
+				6A5C1D9016332AC200B59670 /* Model.xcdatamodeld in Sources */,
+				6A9861E116332FEC005CF324 /* BTSession.m in Sources */,
+				6A9861E81633305F005CF324 /* BTTap.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,8 +319,22 @@
 				6AD989BD16321DA000F4B089 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		6A5C1D8E16332AC200B59670 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6A5C1D8F16332AC200B59670 /* Model.xcdatamodel */,
+			);
+			currentVersion = 6A5C1D8F16332AC200B59670 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6AD9898E16321DA000F4B089 /* Project object */;
 }

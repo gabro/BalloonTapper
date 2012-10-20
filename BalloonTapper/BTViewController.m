@@ -6,8 +6,10 @@
 //  Copyright (c) 2012 HCI. All rights reserved.
 //
 
-#import "BTViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "BTViewController.h"
+#import "BTSession.h"
+#import "BTTap.h"
 
 #define BALLOON_RADIUS 100
 #define ANIMATED YES
@@ -16,6 +18,7 @@
 @interface BTViewController ()
 @property (nonatomic, strong) UIView * baloon;
 @property (nonatomic, assign) NSTimeInterval startTime;
+@property (nonatomic, strong) BTSession * session;
 @end
 
 @implementation BTViewController
@@ -42,6 +45,7 @@
                          for (UILabel * label in self.labels) {
                              [label removeFromSuperview];
                          }
+                         self.session = [BTSession session];
                          [self initializeBalloon];
                          [self initializeTapReceiver];
                      }];
@@ -85,7 +89,12 @@
 
 - (void)balloonPressed {
     [self moveBalloon:[self randomPoint] animated:ANIMATED];
-    NSLog(@"Tap %f", ([NSDate timeIntervalSinceReferenceDate] - self.startTime));
+    
+    NSTimeInterval relativeTime = [NSDate timeIntervalSinceReferenceDate] - self.startTime;
+    BTTap * tap = [BTTap tapWithTime:relativeTime];
+    [self.session addTapsObject:tap];
+    
+    NSLog(@"%@", tap);
 }
 
 
