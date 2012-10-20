@@ -19,7 +19,7 @@ get '/sessions' do
   erb :sessions
 end
 
-post '/session' do
+post '/sessions' do
   puts 'Hello, world'
   taps = params[:taps]
   session = Session.new
