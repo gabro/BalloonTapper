@@ -1,0 +1,111 @@
+//
+//  BTViewController.m
+//  BalloonTapper
+//
+//  Created by Gabriele Petronella on 10/19/12.
+//  Copyright (c) 2012 HCI. All rights reserved.
+//
+
+#import "BTViewController.h"
+#import <QuartzCore/QuartzCore.h>
+
+#define BALLOON_RADIUS 100
+#define ANIMATED YES
+#define ANIMATION_DURATION 0.2f
+
+@interface BTViewController ()
+@property (nonatomic, strong) UIView * baloon;
+@property (nonatomic, assign) NSTimeInterval startTime;
+@end
+
+@implementation BTViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    UITapGestureRecognizer * tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startGame:)];
+    
+    [self.view addGestureRecognizer:tapRecognizer];
+}
+
+
+- (void)startGame:(UIGestureRecognizer *)recognizer {
+    [self.view removeGestureRecognizer:recognizer];
+    [UIView animateWithDuration:0.5f
+                          delay:0.0f
+                        options:UIViewAnimationOptionAllowUserInteraction
+                     animations:^{
+                         for (UILabel * label in self.labels) {
+                             label.alpha = 0.0f;
+                         }
+                     } completion:^(BOOL finished) {
+                         for (UILabel * label in self.labels) {
+                             [label removeFromSuperview];
+                         }
+                         [self initializeBalloon];
+                         [self initializeTapReceiver];
+                     }];
+}
+
+- (void)initializeBalloon {
+    // Create the balloon
+    CGPoint initialCenter = [self randomPoint];
+    CGRect baloonFrame = CGRectMake(initialCenter.x, initialCenter.y, BALLOON_RADIUS, BALLOON_RADIUS);
+    self.baloon = [[UIView alloc] initWithFrame:baloonFrame];
+    self.baloon.layer.cornerRadius = BALLOON_RADIUS / 2;
+    self.baloon.backgroundColor = [UIColor redColor];
+    self.baloon.alpha = 0.0f;
+    
+    // Add the balloon to the view
+    [self.view addSubview:self.baloon];
+
+    // Fade the balloon in
+    [UIView animateWithDuration:0.5f
+                          delay:0.0f
+                        options:UIViewAnimationOptionAllowUserInteraction
+                     animations:^{
+                         self.baloon.alpha = 1.0f;
+                     } completion:^(BOOL finished) {
+                         // Keep trace of the starting time
+                         self.startTime = [NSDate timeIntervalSinceReferenceDate];
+                     }];
+}
+
+- (void)initializeTapReceiver {
+    UITapGestureRecognizer * tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                     action:@selector(balloonPressed)];
+    tapRecognizer.delegate = self;
+    [self.view addGestureRecognizer:tapRecognizer];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+    CGPoint touchPoint = [touch locationInView:self.view];
+    return CGRectContainsPoint(self.baloon.frame, touchPoint);
+}
+
+- (void)balloonPressed {
+    [self moveBalloon:[self randomPoint] animated:ANIMATED];
+    NSLog(@"Tap %f", ([NSDate timeIntervalSinceReferenceDate] - self.startTime));
+}
+
+
+- (void)moveBalloon:(CGPoint)center animated:(BOOL)animated {
+    NSTimeInterval duration = animated ? ANIMATION_DURATION : 0.0f;
+    [UIView animateWithDuration:duration
+                          delay:0.0f
+                        options:UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         self.baloon.center = center;
+                     } completion:nil];
+}
+
+- (CGPoint)randomPoint {
+    int xBound = self.view.bounds.size.width - BALLOON_RADIUS * 2;
+    int yBound = self.view.bounds.size.height - BALLOON_RADIUS * 2;
+    CGFloat x = (CGFloat) (arc4random() % xBound) + BALLOON_RADIUS;
+    CGFloat y = (CGFloat) (arc4random() % yBound) + BALLOON_RADIUS;
+    
+    return CGPointMake(x, y);
+}
+
+@end
