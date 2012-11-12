@@ -1,4 +1,5 @@
 <h1><%= @session %></h1>
+<img src="<%= @plot_url %>" />
 <table>
 	<tr>
 		<th>ID</th>
@@ -7,7 +8,7 @@
 <% @session.taps.each do |tap| %>
 	<tr>
 		<td><%= tap.id %></td>
-		<td><%= tap.time %></td>
+		<td><%= tap.time.round(2) %></td>
 	</tr>
 <% end %>
 </table>

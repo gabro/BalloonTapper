@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6A2B77F8163741870013155B /* BTInitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2B77F7163741870013155B /* BTInitialViewController.m */; };
 		6A61ABE316335B4F0040ABB0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A61ABE216335B4F0040ABB0 /* AVFoundation.framework */; };
 		6A61ABE616335D5B0040ABB0 /* baiao.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6A61ABE516335D5B0040ABB0 /* baiao.mp3 */; };
 		6A9861E116332FEC005CF324 /* BTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9861E016332FEC005CF324 /* BTSession.m */; };
@@ -37,6 +38,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6A2B77F6163741870013155B /* BTInitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTInitialViewController.h; sourceTree = "<group>"; };
+		6A2B77F7163741870013155B /* BTInitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTInitialViewController.m; sourceTree = "<group>"; };
 		6A61ABE216335B4F0040ABB0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		6A61ABE516335D5B0040ABB0 /* baiao.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = baiao.mp3; path = ../baiao.mp3; sourceTree = "<group>"; };
 		6A9861DF16332FEC005CF324 /* BTSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTSession.h; sourceTree = "<group>"; };
@@ -182,6 +185,8 @@
 				6A9861E71633305F005CF324 /* BTTap.m */,
 				6A986209163334C0005CF324 /* BTAPI.h */,
 				6A98620A163334C0005CF324 /* BTAPI.m */,
+				6A2B77F6163741870013155B /* BTInitialViewController.h */,
+				6A2B77F7163741870013155B /* BTInitialViewController.m */,
 			);
 			path = BalloonTapper;
 			sourceTree = "<group>";
@@ -284,6 +289,7 @@
 				6A9862071633349C005CF324 /* AFXMLRequestOperation.m in Sources */,
 				6A9862081633349C005CF324 /* UIImageView+AFNetworking.m in Sources */,
 				6A98620B163334C0005CF324 /* BTAPI.m in Sources */,
+				6A2B77F8163741870013155B /* BTInitialViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

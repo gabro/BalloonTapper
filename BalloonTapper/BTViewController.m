@@ -14,31 +14,52 @@
 #import "BTTap.h"
 #import "BTAPI.h"
 
-#define BALLOON_RADIUS 100
-#define ANIMATED YES
+#define BALLOON_RADIUS 200
+#define ANIMATED NO
 #define ANIMATION_DURATION 0.2f
-#define GAME_LENGTH 60.0f
+#define GAME_LENGTH INFINITY
+
+#define INFLATE_FACTOR 1.05f
+#define DEFLATE_FACTOR 1.0125f
+
 
 @interface BTViewController ()
 @property (nonatomic, strong) UIView * baloon;
 @property (nonatomic, assign) NSTimeInterval startTime;
 @property (nonatomic, strong) BTSession * session;
 @property (nonatomic, strong) AVAudioPlayer * avSound;
+@property (nonatomic, strong) NSTimer * deflateTimer;
+@property (nonatomic, assign) GameMode gameMode;
 @end
 
-@implementation BTViewController
+@implementation BTViewController {
+    CGFloat _currentInflation;
+}
+
+- (id)initWithGameMode:(GameMode)gameMode {
+    if (self = [super init]) {
+        _gameMode = gameMode;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UITapGestureRecognizer * tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(startGame:)];
+    self.restartButton.hidden = YES;
     
-    [self.view addGestureRecognizer:tapRecognizer];
+    if (self.gameMode == GameModeInflate) {
+        _currentInflation = 1.0f;
+        self.deflateTimer = [NSTimer scheduledTimerWithTimeInterval:0.25
+                                                             target:self
+                                                           selector:@selector(deflateBalloon)
+                                                           userInfo:nil
+                                                            repeats:YES];
+    }
 }
 
 
-- (void)startGame:(UIGestureRecognizer *)recognizer {
-    [self.view removeGestureRecognizer:recognizer];
+- (void)startGame {
     [UIView animateWithDuration:0.5f
                           delay:0.0f
                         options:UIViewAnimationOptionAllowUserInteraction
@@ -46,9 +67,15 @@
                          for (UILabel * label in self.labels) {
                              label.alpha = 0.0f;
                          }
+                         for (UIButton * button in self.buttons) {
+                             button.alpha = 0.0f;
+                         }
                      } completion:^(BOOL finished) {
                          for (UILabel * label in self.labels) {
                              [label removeFromSuperview];
+                         }
+                         for (UIButton * button in self.buttons) {
+                             [button removeFromSuperview];
                          }
                          self.session = [BTSession session];
                          [self initializeBalloon];
@@ -70,16 +97,18 @@
     }];
     [self stopMusic];
     [self.baloon removeFromSuperview];
+    [self.deflateTimer invalidate];
+    self.restartButton.hidden = NO;
 }
 
 - (void)initializeBalloon {
     // Create the balloon
-    CGPoint initialCenter = [self randomPoint];
-    CGRect baloonFrame = CGRectMake(initialCenter.x, initialCenter.y, BALLOON_RADIUS, BALLOON_RADIUS);
+    CGRect baloonFrame = CGRectMake(0, 0, BALLOON_RADIUS, BALLOON_RADIUS);
     self.baloon = [[UIView alloc] initWithFrame:baloonFrame];
     self.baloon.layer.cornerRadius = BALLOON_RADIUS / 2;
     self.baloon.backgroundColor = [UIColor redColor];
     self.baloon.alpha = 0.0f;
+    self.baloon.center = self.gameMode == GameModeInflate ? self.view.center : [self randomPoint];
     
     // Add the balloon to the view
     [self.view addSubview:self.baloon];
@@ -109,13 +138,40 @@
 }
 
 - (void)balloonPressed {
-    [self moveBalloon:[self randomPoint] animated:ANIMATED];
-    
+    if (self.gameMode == GameModeInflate) {
+        [self inflateBalloon];
+    } else {
+        [self moveBalloon:[self randomPoint] animated:ANIMATED];
+    }
     NSTimeInterval relativeTime = [NSDate timeIntervalSinceReferenceDate] - self.startTime;
     BTTap * tap = [BTTap tapWithTime:relativeTime];
     [self.session addTap:tap];
     
     NSLog(@"%@", tap);
+}
+
+- (void)inflateBalloon {
+    [UIView animateWithDuration:0.2f
+                          delay:0.0f
+                        options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         self.baloon.layer.affineTransform = CGAffineTransformMakeScale(_currentInflation*INFLATE_FACTOR, _currentInflation*INFLATE_FACTOR);
+                         _currentInflation *= INFLATE_FACTOR;
+                         NSLog(@"Inflate %f", _currentInflation);
+                     } completion:nil];
+}
+
+- (void)deflateBalloon {
+    if (_currentInflation > 1.0f) {
+        [UIView animateWithDuration:0.5f
+                              delay:0.0f
+                            options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveLinear
+                         animations:^{
+                             self.baloon.layer.affineTransform = CGAffineTransformMakeScale(_currentInflation/DEFLATE_FACTOR, _currentInflation/DEFLATE_FACTOR);
+                             _currentInflation /= DEFLATE_FACTOR;
+                             NSLog(@"Deflate %f", _currentInflation);
+                         } completion:nil];
+    }
 }
 
 
@@ -144,9 +200,8 @@
     NSError * error;
     self.avSound = [[AVAudioPlayer alloc]
                     initWithContentsOfURL:soundURL error:&error];
-    if (error) {
-        NSLog(@"%@", error);
-    }
+    if (error) NSLog(@"%@", error);
+    
     [self.avSound play];
 }
 
@@ -154,5 +209,26 @@
     if ([self.avSound isPlaying])
         [self.avSound stop];
 }
+
+- (IBAction)startMoveMode {
+    self.gameMode = GameModeMove;
+    [self startGame];
+}
+
+- (IBAction)startInflateMode {
+    self.gameMode = GameModeInflate;
+    [self startGame];
+}
+
+- (IBAction)restart {
+    for (UILabel * label in self.labels) {
+        label.alpha = 1.0f;
+    }
+    for (UIButton * button in self.buttons) {
+        button.alpha = 1.0f;
+    }
+    self.restartButton.hidden = YES;
+}
+
 
 @end

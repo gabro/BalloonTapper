@@ -26,30 +26,67 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="tap anywhere to start" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="685" translatesAutoresizingMaskIntoConstraints="NO" id="gHa-TR-A5V">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="96" id="LFm-39-KeT"/>
-                                    <constraint firstAttribute="width" constant="685" id="kBl-fR-qB6"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="41"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQB-RT-wqT">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Move mode">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startMoveMode" destination="2" eventType="touchUpInside" id="OZG-XN-iAB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XGz-y6-czj">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Inflate mode">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="startInflateMode" destination="2" eventType="touchUpInside" id="o5L-J7-UiU"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q3F-7X-6O7">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Restart">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="restart" destination="2" eventType="touchUpInside" id="vLE-g9-UfS"/>
+                                    <action selector="startInflateMode" destination="2" eventType="touchUpInside" id="k68-ZY-tXe"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="gHa-TR-A5V" secondAttribute="bottom" constant="172" id="Fd3-Sn-mML"/>
-                            <constraint firstItem="yS8-Or-Ij3" firstAttribute="centerX" secondItem="5" secondAttribute="centerX" type="default" id="MPa-2K-BWZ"/>
+                            <constraint firstItem="Q3F-7X-6O7" firstAttribute="centerX" secondItem="5" secondAttribute="centerX" type="default" id="5hg-Yt-FCt"/>
+                            <constraint firstItem="Q3F-7X-6O7" firstAttribute="centerX" secondItem="Cc0-O5-VCJ" secondAttribute="centerX" type="default" id="5m2-de-n9K"/>
+                            <constraint firstItem="Cc0-O5-VCJ" firstAttribute="centerX" secondItem="yS8-Or-Ij3" secondAttribute="centerX" type="default" id="I8W-K4-L0V"/>
                             <constraint firstItem="yS8-Or-Ij3" firstAttribute="top" secondItem="5" secondAttribute="top" constant="278" id="Vrg-LC-2ou"/>
                             <constraint firstItem="Cc0-O5-VCJ" firstAttribute="top" secondItem="5" secondAttribute="top" constant="431" id="Y4i-R1-FhB"/>
-                            <constraint firstItem="yS8-Or-Ij3" firstAttribute="centerX" secondItem="Cc0-O5-VCJ" secondAttribute="centerX" type="default" id="f6O-eg-Of0"/>
-                            <constraint firstItem="gHa-TR-A5V" firstAttribute="trailing" secondItem="yS8-Or-Ij3" secondAttribute="trailing" type="default" id="rBl-V6-ksa"/>
+                            <constraint firstAttribute="trailing" secondItem="XGz-y6-czj" secondAttribute="trailing" constant="211" id="dJW-0Z-ELa"/>
+                            <constraint firstItem="XGz-y6-czj" firstAttribute="baseline" secondItem="OQB-RT-wqT" secondAttribute="baseline" type="default" id="pVS-eP-gXb"/>
+                            <constraint firstAttribute="bottom" secondItem="Q3F-7X-6O7" secondAttribute="bottom" constant="72" id="tDy-CC-vnw"/>
+                            <constraint firstAttribute="bottom" secondItem="OQB-RT-wqT" secondAttribute="bottom" constant="191" id="uAo-Pc-yqf"/>
+                            <constraint firstItem="OQB-RT-wqT" firstAttribute="leading" secondItem="5" secondAttribute="leading" constant="211" id="w3x-es-Cc7"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="restartButton" destination="Q3F-7X-6O7" id="hbF-Lm-bgW"/>
                         <outletCollection property="labels" destination="yS8-Or-Ij3" id="pPh-9L-Idc"/>
                         <outletCollection property="labels" destination="Cc0-O5-VCJ" id="jYr-HH-aTO"/>
-                        <outletCollection property="labels" destination="gHa-TR-A5V" id="PFq-i4-jCZ"/>
+                        <outletCollection property="buttons" destination="OQB-RT-wqT" id="duI-NH-wVM"/>
+                        <outletCollection property="buttons" destination="XGz-y6-czj" id="Ase-Vd-JFM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
@@ -60,6 +97,11 @@
         <class className="BTViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BTViewController.h"/>
             <relationships>
+                <relationship kind="action" name="restart"/>
+                <relationship kind="action" name="startInflateMode"/>
+                <relationship kind="action" name="startMoveMode"/>
+                <relationship kind="outlet" name="restartButton" candidateClass="UIButton"/>
+                <relationship kind="outletCollection" name="buttons" candidateClass="UIButton"/>
                 <relationship kind="outletCollection" name="labels" candidateClass="UILabel"/>
             </relationships>
         </class>

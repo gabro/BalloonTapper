@@ -1,15 +1,21 @@
 require 'sinatra'
 require 'json'
 require 'data_mapper'
+require 'gchart'
 
 get '/' do
   redirect '/sessions'
 end
 
-
 get '/sessions/:id' do
   @session = Session.get(params[:id])
   @title = session.to_s
+  @plot_url = Gchart.scatter(
+        data: [@session.taps.map { |t| t.time.round(2) }, Array.new(@session.taps.size, 1), Array.new(@session.taps.size, 10)],
+        hAxis: {title: 'Taps', minValue: 0, maxValue: 60},
+        vAxis: {title: '', minValue: 0, maxValue: 0},
+        width: 800
+      )
   erb :session
 end
 
@@ -20,7 +26,6 @@ get '/sessions' do
 end
 
 post '/sessions' do
-  puts 'Hello, world'
   taps = params[:taps]
   session = Session.new
   taps.each do |t|
