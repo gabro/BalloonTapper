@@ -19,8 +19,13 @@
 #define ANIMATION_DURATION 0.2f
 #define GAME_LENGTH INFINITY
 
+#define TAP_MODE_LIMIT 20
+#define INFLATE_MODE_LIMIT MIN(self.view.frame.size.height, self.view.frame.size.width)
+
 #define INFLATE_FACTOR 1.05f
 #define DEFLATE_FACTOR 1.0125f
+#define EXPLOSION_MULTIPLIER 4
+
 
 
 @interface BTViewController ()
@@ -95,6 +100,7 @@
     } failure:^(NSError *error) {
         NSLog(@"%@", error);
     }];
+
     [self stopMusic];
     [self.baloon removeFromSuperview];
     [self.deflateTimer invalidate];
@@ -148,6 +154,40 @@
     [self.session addTap:tap];
     
     NSLog(@"%@", tap);
+    
+    [self checkGameEnd];
+}
+
+- (void)checkGameEnd {
+    NSLog(@"tap limit exceeded %@", self.gameMode == GameModeMove && self.session.tapCount > TAP_MODE_LIMIT ? @"yes" : @"no");
+    switch (self.gameMode) {
+        case GameModeMove:
+            if (self.session.tapCount > TAP_MODE_LIMIT)
+                [self endGame];
+            break;
+            
+        case GameModeInflate:
+            if (self.baloon.frame.size.width > INFLATE_MODE_LIMIT) {
+                [self explodeBalloonAndEndGame];
+            }
+            break;
+            
+        default:
+            break;
+    }        
+}
+
+- (void) explodeBalloonAndEndGame {
+    [UIView animateWithDuration:1.0f
+                          delay:0.0f
+                        options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         self.baloon.layer.affineTransform = CGAffineTransformMakeScale(_currentInflation*EXPLOSION_MULTIPLIER, _currentInflation*EXPLOSION_MULTIPLIER);
+                         self.baloon.alpha = 0.1f;
+                         NSLog(@"Exploding ballon");
+                     } completion:^(BOOL finished){
+                         [self endGame];
+                     }];
 }
 
 - (void)inflateBalloon {

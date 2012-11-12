@@ -38,4 +38,8 @@
     self.taps = [self.taps arrayByAddingObject:tap];
 }
 
+- (int)tapCount {
+    return [self.taps count];
+}
+
 @end

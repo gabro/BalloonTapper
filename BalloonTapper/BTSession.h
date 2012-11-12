@@ -20,4 +20,6 @@
 
 - (void)addTap:(BTTap *)tap;
 
+- (int)tapCount;
+
 @end

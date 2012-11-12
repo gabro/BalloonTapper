@@ -18,4 +18,5 @@
 
 - (NSDictionary *)json;
 
+
 @end

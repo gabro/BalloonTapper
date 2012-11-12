@@ -10,8 +10,8 @@
 #import "AFNetworking.h"
 #import "BTSession.h"
 
-#define BTAPI_BASE_URL @"http://localhost:4567"
-#define BT_POST_SESSION @"/session"
+#define BTAPI_BASE_URL @"http://balloontapper.webdevelovers.com"
+#define BT_POST_SESSION @"/sessions"
 
 @interface BTAPI ()
 @property(nonatomic, strong) AFHTTPClient * httpClient;
