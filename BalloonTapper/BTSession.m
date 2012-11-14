@@ -16,6 +16,15 @@
     return [[BTSession alloc] init];
 }
 
++ (BTSession *)sessionWithJSON:(NSDictionary *)json {
+    BTSession * session = [BTSession session];
+    session.sessionId = json[@"_id"];
+    for (NSDictionary * tapDict in json[@"taps"]) {
+        // TODO initialize the taps
+    }
+    return session;
+}
+
 - (id)init {
     self = [super init];
     if (self) {
@@ -26,6 +35,7 @@
 
 - (NSDictionary *)json {
     NSMutableDictionary * dict = [NSMutableDictionary dictionary];
+    dict[@"_id"] = self.sessionId;
     NSMutableArray * taps = [NSMutableArray arrayWithCapacity:self.taps.count];
     for (BTTap * tap in self.taps) {
             [taps addObject:tap.json];

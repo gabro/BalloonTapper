@@ -12,6 +12,7 @@
 
 @interface BTTap : NSObject
 
+@property (nonatomic, retain) NSString * tapId;
 @property (nonatomic, assign) NSTimeInterval time;
 
 + (BTTap *)tapWithTime:(NSTimeInterval)time;

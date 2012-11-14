@@ -12,9 +12,11 @@
 
 @interface BTSession : NSObject
 
+@property (nonatomic, retain) NSString * sessionId;
 @property (nonatomic, retain) NSArray * taps;
 
 + (BTSession *)session;
++ (BTSession *)sessionWithJSON:(NSDictionary *)json;
 
 - (NSDictionary *)json;
 

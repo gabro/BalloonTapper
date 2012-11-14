@@ -65,6 +65,22 @@
 
 
 - (void)startGame {
+    [[BTAPI sharedInstance] startSessionCompletion:^(BTSession *newSession) {
+        self.session = newSession;
+        [self startAnimation];
+    } failure:^(NSError * error) {
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                            message:@"Couldn't reach the server"
+                                                        delegate:nil
+                                               cancelButtonTitle:@"Ok"
+                                               otherButtonTitles:nil, nil];
+        [alert show];
+        self.session = [BTSession session];
+        [self startAnimation];
+    }];
+}
+
+- (void)startAnimation {
     [UIView animateWithDuration:0.5f
                           delay:0.0f
                         options:UIViewAnimationOptionAllowUserInteraction
@@ -82,7 +98,6 @@
                          for (UIButton * button in self.buttons) {
                              [button removeFromSuperview];
                          }
-                         self.session = [BTSession session];
                          [self initializeBalloon];
                          [self initializeTapReceiver];
                          [NSTimer scheduledTimerWithTimeInterval:GAME_LENGTH
@@ -95,11 +110,11 @@
 }
 
 - (void)endGame {
-    [[BTAPI sharedInstance] postSession:self.session completion:^{
-        NSLog(@"Sent!");
-    } failure:^(NSError *error) {
-        NSLog(@"%@", error);
-    }];
+//    [[BTAPI sharedInstance] postSession:self.session completion:^{
+//        NSLog(@"Sent!");
+//    } failure:^(NSError *error) {
+//        NSLog(@"%@", error);
+//    }];
 
     [self stopMusic];
     [self.baloon removeFromSuperview];
@@ -151,7 +166,13 @@
     }
     NSTimeInterval relativeTime = [NSDate timeIntervalSinceReferenceDate] - self.startTime;
     BTTap * tap = [BTTap tapWithTime:relativeTime];
+    tap.tapId = [NSString stringWithFormat:@"%i", self.session.taps.count + 1];
     [self.session addTap:tap];
+    
+    [[BTAPI sharedInstance] postTap:tap toSession:self.session completion:^{} failure:^(NSError * error) {
+        NSLog(@"Could not send the tap");
+        //TODO retry
+    }];
     
     NSLog(@"%@", tap);
     
@@ -177,8 +198,8 @@
     }        
 }
 
-- (void) explodeBalloonAndEndGame {
-    [UIView animateWithDuration:1.0f
+- (void)explodeBalloonAndEndGame {
+    [UIView animateWithDuration:0.4f
                           delay:0.0f
                         options:UIViewAnimationOptionAllowUserInteraction|UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveLinear
                      animations:^{
@@ -197,7 +218,7 @@
                      animations:^{
                          self.baloon.layer.affineTransform = CGAffineTransformMakeScale(_currentInflation*INFLATE_FACTOR, _currentInflation*INFLATE_FACTOR);
                          _currentInflation *= INFLATE_FACTOR;
-                         NSLog(@"Inflate %f", _currentInflation);
+//                         NSLog(@"Inflate %f", _currentInflation);
                      } completion:nil];
 }
 
@@ -209,7 +230,7 @@
                          animations:^{
                              self.baloon.layer.affineTransform = CGAffineTransformMakeScale(_currentInflation/DEFLATE_FACTOR, _currentInflation/DEFLATE_FACTOR);
                              _currentInflation /= DEFLATE_FACTOR;
-                             NSLog(@"Deflate %f", _currentInflation);
+//                             NSLog(@"Deflate %f", _currentInflation);
                          } completion:nil];
     }
 }
