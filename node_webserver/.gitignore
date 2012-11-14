@@ -1,0 +1,20 @@
+###Node###
+ 
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+
+npm-debug.log
+
+### Please do not upload 29M of modules to the repo ###
+##### just run npm install locally ###
+node_modules
