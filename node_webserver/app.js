@@ -5,14 +5,14 @@ var io = require('socket.io').listen(server);
 var PUBLIC_DIR = "static";
 
 app.use(express.static(PUBLIC_DIR));
+app.use(express.bodyParser());
 
 var mongoose = require('mongoose');
 var db = mongoose.createConnection('localhost', 'hci-sync');
 
 // S C H E M A 
 var sessionSchema = mongoose.Schema({
-	id: String,
-	taps: [{id: String, time: Number}]
+	taps: [mongoose.Schema.Types.Mixed]
 });
 var Session = db.model('Session', sessionSchema);
 
@@ -22,11 +22,27 @@ app.get('/', function(req, res){
 });
 
 
-app.post('/session', function (req, res){
+app.post('/sessions', function (req, res){
 	var s = new Session(req.params.taps);
 	s.save();
 	io.sockets.emit('session-added', s);
 	res.send({error: false});
+});
+
+app.post('/sessions/new', function (req, res){
+	var s = new Session();
+	s.save();
+	io.sockets.emit('session-added', s);
+	res.send(s);
+});
+
+app.post('/sessions/:id/taps/new', function (req, res){
+	Session.findOne({_id: req.params.id}, function (err, obj) {
+		obj.taps.push({time: req.body.time});
+		obj.save();
+		res.send(obj);
+		io.sockets.emit('tapped', obj);
+	});
 });
 
 server.listen(3000);
