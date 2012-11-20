@@ -10,6 +10,17 @@ app.use(express.bodyParser());
 var mongoose = require('mongoose');
 var db = mongoose.createConnection('localhost', 'hci-sync');
 
+var sockets = [];
+var broadcast = function (type, msg) {
+	for (var i = 0; i < sockets.length; i++) {
+		sockets[i].emit(type, msg);
+	}
+}
+
+io.sockets.on('connection', function (socket) {
+  sockets.push(socket);
+});
+
 // S C H E M A 
 var sessionSchema = mongoose.Schema({
 	taps: [mongoose.Schema.Types.Mixed]
@@ -25,14 +36,14 @@ app.get('/', function(req, res){
 app.post('/sessions', function (req, res){
 	var s = new Session(req.params.taps);
 	s.save();
-	io.sockets.emit('session-added', s);
+	broadcast('session-added', s);
 	res.send({error: false});
 });
 
 app.post('/sessions/new', function (req, res){
 	var s = new Session();
 	s.save();
-	io.sockets.emit('session-added', s);
+	broadcast('session-added', s);
 	res.send(s);
 });
 
@@ -41,7 +52,7 @@ app.post('/sessions/:id/taps/new', function (req, res){
 		obj.taps.push({time: req.body.time});
 		obj.save();
 		res.send(obj);
-		io.sockets.emit('tapped', obj);
+		broadcast('tapped', obj);
 	});
 });
 
