@@ -46,6 +46,7 @@ var db = mongoose.createConnection('localhost', 'hci-sync');
 
 // S C H E M A 
 var sessionSchema = mongoose.Schema({
+  date: [Date],
 	taps: [mongoose.Schema.Types.Mixed]
 });
 var Session = db.model('Session', sessionSchema);
@@ -58,6 +59,7 @@ app.get('/', function(req, res){
 
 app.post('/sessions', function (req, res){
 	var s = new Session(req.params.taps);
+  s.date = new Date;
 	s.save();
 	io.sockets.emit('session-added', s);
 	res.send({error: false});
@@ -65,6 +67,7 @@ app.post('/sessions', function (req, res){
 
 app.post('/sessions/new', function (req, res){
 	var s = new Session();
+  s.date = new Date;
 	s.save();
 	io.sockets.emit('session-added', s);
 	res.send(s);
