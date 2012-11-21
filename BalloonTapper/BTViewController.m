@@ -52,33 +52,24 @@
     [super viewDidLoad];
     
     self.restartButton.hidden = YES;
-    
-    if (self.gameMode == GameModeInflate) {
-        _currentInflation = 1.0f;
-        self.deflateTimer = [NSTimer scheduledTimerWithTimeInterval:0.25
-                                                             target:self
-                                                           selector:@selector(deflateBalloon)
-                                                           userInfo:nil
-                                                            repeats:YES];
-    }
 }
 
 
 - (void)startGame {
     [[BTAPI sharedInstance] startSessionForGameMode:self.gameMode
-                                          completion:^(BTSession *newSession) {
-        self.session = newSession;
-        [self startAnimation];
-    } failure:^(NSError * error) {
-        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                            message:@"Couldn't reach the server"
-                                                        delegate:nil
-                                               cancelButtonTitle:@"Ok"
-                                               otherButtonTitles:nil, nil];
-        [alert show];
-        self.session = [BTSession session];
-        [self startAnimation];
-    }];
+                                         completion:^(BTSession *newSession) {
+                                             self.session = newSession;
+                                             [self startAnimation];
+                                         } failure:^(NSError * error) {
+                                             UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                                              message:@"Couldn't reach the server"
+                                                                                             delegate:nil
+                                                                                    cancelButtonTitle:@"Ok"
+                                                                                    otherButtonTitles:nil, nil];
+                                             [alert show];
+                                             self.session = [BTSession session];
+                                             [self startAnimation];
+                                         }];
 }
 
 - (void)startAnimation {
@@ -111,12 +102,12 @@
 }
 
 - (void)endGame {
-//    [[BTAPI sharedInstance] postSession:self.session completion:^{
-//        NSLog(@"Sent!");
-//    } failure:^(NSError *error) {
-//        NSLog(@"%@", error);
-//    }];
-
+    //    [[BTAPI sharedInstance] postSession:self.session completion:^{
+    //        NSLog(@"Sent!");
+    //    } failure:^(NSError *error) {
+    //        NSLog(@"%@", error);
+    //    }];
+    
     [self stopMusic];
     [self.baloon removeFromSuperview];
     [self.deflateTimer invalidate];
@@ -134,7 +125,7 @@
     
     // Add the balloon to the view
     [self.view addSubview:self.baloon];
-
+    
     // Fade the balloon in
     [UIView animateWithDuration:0.5f
                           delay:0.0f
@@ -196,7 +187,7 @@
             
         default:
             break;
-    }        
+    }
 }
 
 - (void)explodeBalloonAndEndGame {
@@ -219,7 +210,7 @@
                      animations:^{
                          self.baloon.layer.affineTransform = CGAffineTransformMakeScale(_currentInflation*INFLATE_FACTOR, _currentInflation*INFLATE_FACTOR);
                          _currentInflation *= INFLATE_FACTOR;
-//                         NSLog(@"Inflate %f", _currentInflation);
+                         //                         NSLog(@"Inf0late %f", _currentInflation);
                      } completion:nil];
 }
 
@@ -231,7 +222,7 @@
                          animations:^{
                              self.baloon.layer.affineTransform = CGAffineTransformMakeScale(_currentInflation/DEFLATE_FACTOR, _currentInflation/DEFLATE_FACTOR);
                              _currentInflation /= DEFLATE_FACTOR;
-//                             NSLog(@"Deflate %f", _currentInflation);
+                             //                             NSLog(@"Deflate %f", _currentInflation);
                          } completion:nil];
     }
 }
@@ -279,6 +270,12 @@
 
 - (IBAction)startInflateMode {
     self.gameMode = GameModeInflate;
+    _currentInflation = 1.0f;
+    self.deflateTimer = [NSTimer scheduledTimerWithTimeInterval:0.25
+                                                         target:self
+                                                       selector:@selector(deflateBalloon)
+                                                       userInfo:nil
+                                                        repeats:YES];
     [self startGame];
 }
 
