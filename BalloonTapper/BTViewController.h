@@ -7,12 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef enum _GameMode {
-    GameModeInflate = 0,
-    GameModeMove
-} GameMode;
-
 @interface BTViewController : UIViewController <UIGestureRecognizerDelegate>
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labels;

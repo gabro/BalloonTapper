@@ -15,7 +15,8 @@
 
 + (BTAPI *)sharedInstance;
 
-- (void)startSessionCompletion:(void (^)(BTSession * newSession))completion
+- (void)startSessionForGameMode:(GameMode)gameMode
+                     completion:(void (^)(BTSession * newSession))completion
                        failure:(void (^)(NSError *))failure;
 
 - (void)postTap:(BTTap *)tap

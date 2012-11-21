@@ -46,6 +46,7 @@
     NSMutableURLRequest * urlRequest = [self.httpClient requestWithMethod:@"POST"
                                                                      path:path
                                                                parameters:params];
+    
     AFJSONRequestOperation * operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:urlRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         completion();
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -56,12 +57,14 @@
     [queue addOperation:operation];
 }
 
-- (void)startSessionCompletion:(void (^)(BTSession * newSession))completion
-             failure:(void (^)(NSError *))failure {
+- (void)startSessionForGameMode:(GameMode)gameMode
+                     completion:(void (^)(BTSession * newSession))completion
+                        failure:(void (^)(NSError *))failure {
     NSString * path = [NSString stringWithFormat:BT_NEW_SESSION];
+    NSDictionary * params = @{@"game_mode" : @(gameMode)};
     NSMutableURLRequest * urlRequest = [self.httpClient requestWithMethod:@"POST"
                                                                      path:path
-                                                               parameters:nil];
+                                                               parameters:params];
     AFJSONRequestOperation * operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:urlRequest success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         BTSession * newSession = [BTSession sessionWithJSON:JSON];
         completion(newSession);

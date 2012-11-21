@@ -65,7 +65,8 @@
 
 
 - (void)startGame {
-    [[BTAPI sharedInstance] startSessionCompletion:^(BTSession *newSession) {
+    [[BTAPI sharedInstance] startSessionForGameMode:self.gameMode
+                                          completion:^(BTSession *newSession) {
         self.session = newSession;
         [self startAnimation];
     } failure:^(NSError * error) {

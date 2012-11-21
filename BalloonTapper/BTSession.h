@@ -14,6 +14,7 @@
 
 @property (nonatomic, retain) NSString * sessionId;
 @property (nonatomic, retain) NSArray * taps;
+@property (nonatomic, assign) GameMode gameMode;
 
 + (BTSession *)session;
 + (BTSession *)sessionWithJSON:(NSDictionary *)json;
