@@ -12,7 +12,7 @@
   });
   socket.on('tapped', function (data) {
     count++;
-  	var sum += data.taps[data.taps.length - 1].time - prev;
+  	sum = sum + (data.taps[data.taps.length - 1].time - prev);
   	prev = data.taps[data.taps.length - 1].time;
     document.write("tapped" + data.taps[data.taps.length - 1].time + "<br />");
     document.write("average now is " + sum/count + "<br />");
