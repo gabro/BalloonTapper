@@ -61,7 +61,7 @@
                      completion:(void (^)(BTSession * newSession))completion
                         failure:(void (^)(NSError *))failure {
     NSString * path = [NSString stringWithFormat:BT_NEW_SESSION];
-    NSDictionary * params = @{@"game_mode" : @(gameMode)};
+    NSDictionary * params = @{@"gameMode" : @(gameMode)};
     NSMutableURLRequest * urlRequest = [self.httpClient requestWithMethod:@"POST"
                                                                      path:path
                                                                parameters:params];

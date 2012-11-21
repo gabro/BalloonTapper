@@ -19,7 +19,7 @@
 + (BTSession *)sessionWithJSON:(NSDictionary *)json {
     BTSession * session = [BTSession session];
     session.sessionId = json[@"_id"];
-    session.gameMode = [json[@"game_mode"] integerValue];
+    session.gameMode = [json[@"gameMode"] integerValue];
     for (NSDictionary * tapDict in json[@"taps"]) {
         // TODO initialize the taps
     }
@@ -41,6 +41,7 @@
     for (BTTap * tap in self.taps) {
             [taps addObject:tap.json];
     }
+    dict[@"gameMode"] = @(self.gameMode);
     dict[@"taps"] = taps;
     return dict;
 }
