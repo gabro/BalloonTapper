@@ -2,7 +2,7 @@
 <script>
   var socket = io.connect('http://balloontapper.webdevelovers.com/');
   socket.on('session-added', function (data) {
-    document.write(data._id + "-------"+ data["game_mode"] + "<br />");
+    document.write(data._id + "-------"+ data["gameMode"] + "<br />");
   });
   socket.on('tapped', function (data) {
     document.write("tapped" + data.taps[data.taps.length - 1].time + "<br />");
