@@ -46,8 +46,8 @@ var db = mongoose.createConnection('localhost', 'hci-sync');
 
 // S C H E M A 
 var sessionSchema = mongoose.Schema({
-  date: [Date],
-  type: [String],
+  date: Date,
+  type: String,
 	taps: [mongoose.Schema.Types.Mixed]
 });
 var Session = db.model('Session', sessionSchema);
