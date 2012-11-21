@@ -13,7 +13,7 @@
 
 #define BTAPI_BASE_URL @"http://balloontapper.webdevelovers.com"
 #define BT_POST_TAP @"/sessions/%@/taps/new"
-#define BT_NEW_SESSION @"sessions/new"
+#define BT_NEW_SESSION @"/sessions/new"
 
 @interface BTAPI ()
 @property(nonatomic, strong) AFHTTPClient * httpClient;
