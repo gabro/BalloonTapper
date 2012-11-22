@@ -1,10 +1,20 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
+  var count = 0;
+  var sum = 0;
+  var prev = 0;
   var socket = io.connect('http://balloontapper.webdevelovers.com/');
   socket.on('session-added', function (data) {
+  	count = 0;
+	  sum = 0;
+  	prev = 0;
     document.write(data._id + "-------"+ data["gameMode"] + "<br />");
   });
   socket.on('tapped', function (data) {
+    count++;
+  	sum = sum + (data.taps[data.taps.length - 1].time - prev);
+  	prev = data.taps[data.taps.length - 1].time;
     document.write("tapped" + data.taps[data.taps.length - 1].time + "<br />");
+    document.write("average now is " + sum/count + "<br />");
   });
 </script>
