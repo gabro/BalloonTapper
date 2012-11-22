@@ -19,7 +19,7 @@
 #define ANIMATION_DURATION 0.2f
 #define GAME_LENGTH INFINITY
 
-#define TAP_MODE_LIMIT 20
+#define TAP_MODE_LIMIT 45
 #define INFLATE_MODE_LIMIT MIN(self.view.frame.size.height, self.view.frame.size.width)
 
 #define INFLATE_FACTOR 1.05f
@@ -84,12 +84,6 @@
                              button.alpha = 0.0f;
                          }
                      } completion:^(BOOL finished) {
-                         for (UILabel * label in self.labels) {
-                             [label removeFromSuperview];
-                         }
-                         for (UIButton * button in self.buttons) {
-                             [button removeFromSuperview];
-                         }
                          [self initializeBalloon];
                          [self initializeTapReceiver];
                          [NSTimer scheduledTimerWithTimeInterval:GAME_LENGTH
@@ -147,7 +141,11 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
     CGPoint touchPoint = [touch locationInView:self.view];
-    return CGRectContainsPoint(self.baloon.frame, touchPoint);
+    CGRect extendedFrame = CGRectMake(self.baloon.frame.origin.x - CGRectGetWidth(self.baloon.frame),
+                                      self.baloon.frame.origin.y - CGRectGetHeight(self.baloon.frame),
+                                      self.baloon.frame.size.width * 3,
+                                      self.baloon.frame.size.height * 3);
+    return CGRectContainsPoint(extendedFrame, touchPoint);
 }
 
 - (void)balloonPressed {
@@ -248,7 +246,8 @@
 }
 
 - (void)startMusic {
-    NSURL *soundURL = [[NSBundle mainBundle] URLForResource:@"baiao"
+    NSString * tetris = self.gameMode == GameModeMove ? @"tetris130" : @"tetris153";
+    NSURL *soundURL = [[NSBundle mainBundle] URLForResource:tetris
                                               withExtension:@"mp3"];
     NSError * error;
     self.avSound = [[AVAudioPlayer alloc]
@@ -287,6 +286,7 @@
         button.alpha = 1.0f;
     }
     self.restartButton.hidden = YES;
+
 }
 
 

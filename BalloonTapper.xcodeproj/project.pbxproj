@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		6A2B77F8163741870013155B /* BTInitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A2B77F7163741870013155B /* BTInitialViewController.m */; };
+		6A305063165DCF36002944FB /* tetris130.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6A305061165DCF36002944FB /* tetris130.mp3 */; };
+		6A305064165DCF36002944FB /* tetris153.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6A305062165DCF36002944FB /* tetris153.mp3 */; };
 		6A61ABE316335B4F0040ABB0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A61ABE216335B4F0040ABB0 /* AVFoundation.framework */; };
-		6A61ABE616335D5B0040ABB0 /* baiao.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 6A61ABE516335D5B0040ABB0 /* baiao.mp3 */; };
 		6A9861E116332FEC005CF324 /* BTSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9861E016332FEC005CF324 /* BTSession.m */; };
 		6A9861E81633305F005CF324 /* BTTap.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A9861E71633305F005CF324 /* BTTap.m */; };
 		6A9861EA1633323D005CF324 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A9861E91633323D005CF324 /* CoreData.framework */; };
@@ -40,8 +41,9 @@
 /* Begin PBXFileReference section */
 		6A2B77F6163741870013155B /* BTInitialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTInitialViewController.h; sourceTree = "<group>"; };
 		6A2B77F7163741870013155B /* BTInitialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTInitialViewController.m; sourceTree = "<group>"; };
+		6A305061165DCF36002944FB /* tetris130.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tetris130.mp3; sourceTree = SOURCE_ROOT; };
+		6A305062165DCF36002944FB /* tetris153.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = tetris153.mp3; sourceTree = SOURCE_ROOT; };
 		6A61ABE216335B4F0040ABB0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		6A61ABE516335D5B0040ABB0 /* baiao.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = baiao.mp3; path = ../baiao.mp3; sourceTree = "<group>"; };
 		6A9861DF16332FEC005CF324 /* BTSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTSession.h; sourceTree = "<group>"; };
 		6A9861E016332FEC005CF324 /* BTSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTSession.m; sourceTree = "<group>"; };
 		6A9861E61633305F005CF324 /* BTTap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTTap.h; sourceTree = "<group>"; };
@@ -194,7 +196,8 @@
 		6AD989A216321DA000F4B089 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				6A61ABE516335D5B0040ABB0 /* baiao.mp3 */,
+				6A305061165DCF36002944FB /* tetris130.mp3 */,
+				6A305062165DCF36002944FB /* tetris153.mp3 */,
 				6AD989A316321DA000F4B089 /* BalloonTapper-Info.plist */,
 				6AD989A416321DA000F4B089 /* InfoPlist.strings */,
 				6AD989A716321DA000F4B089 /* main.m */,
@@ -263,7 +266,8 @@
 				6AD989B016321DA000F4B089 /* Default@2x.png in Resources */,
 				6AD989B216321DA000F4B089 /* Default-568h@2x.png in Resources */,
 				6AD989B516321DA000F4B089 /* MainStoryboard.storyboard in Resources */,
-				6A61ABE616335D5B0040ABB0 /* baiao.mp3 in Resources */,
+				6A305063165DCF36002944FB /* tetris130.mp3 in Resources */,
+				6A305064165DCF36002944FB /* tetris153.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
